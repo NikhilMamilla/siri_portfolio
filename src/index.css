@@ -1,3 +1,514 @@
+/* ═══════════════════════════════════════════════════════════════════
+   SAHITHI SIRI — PORTFOLIO DESIGN SYSTEM
+   Dark Luxury Editorial Magazine — Vogue meets AI Lab
+   ═══════════════════════════════════════════════════════════════════ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   1. CSS CUSTOM PROPERTIES
+   Raw design tokens for use outside of Tailwind (JS, inline, etc.)
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Color Tokens ── */
+  --color-obsidian:       #0D0709;
+  --color-wine-deep:      #2B0F14;
+  --color-wine:           #6D2E46;
+  --color-wine-light:     #8A3A5A;
+  --color-wine-muted:     #4A1E30;
+  --color-gold-mist:      #C9A96E;
+  --color-gold-light:     #DFC48B;
+  --color-gold-dark:      #A68B4B;
+  --color-smoke:          #C4A8B0;
+  --color-smoke-light:    #E8D5DA;
+  --color-smoke-bright:   #F5EEF0;
+  --color-surface:        #1A0C10;
+  --color-surface-elevated: #231218;
+  --color-surface-glass:  rgba(43, 15, 20, 0.6);
+
+  /* ── Typography Tokens ── */
+  --font-display:   'Cormorant Garamond', Georgia, serif;
+  --font-heading:   'Syne', 'Inter', system-ui, sans-serif;
+  --font-body:      'DM Sans', 'Inter', system-ui, sans-serif;
+  --font-mono:      'JetBrains Mono', 'Fira Code', monospace;
+  --font-editorial: 'Playfair Display', Georgia, serif;
+
+  /* ── Spacing Tokens ── */
+  --section-padding-y: 6rem;
+  --section-padding-x: clamp(1.5rem, 5vw, 4rem);
+  --content-max-width: 1280px;
+
+  /* ── Transition Tokens ── */
+  --ease-luxury:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-dramatic:  cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-editorial: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Z-Index Scale ── */
+  --z-base:      1;
+  --z-dropdown:  10;
+  --z-sticky:    20;
+  --z-nav:       50;
+  --z-overlay:   100;
+  --z-modal:     200;
+  --z-preloader: 999;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. BASE LAYER — Global Resets & Defaults
+   ═══════════════════════════════════════════════════════════════════ */
+
+@layer base {
+
+  /* ── Smooth Scroll ── */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ── Body Defaults ── */
+  body {
+    @apply bg-obsidian text-smoke-bright font-body;
+    overflow-x: hidden;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── Selection Color ── */
+  ::selection {
+    background: rgba(109, 46, 70, 0.4);
+    color: #F5EEF0;
+  }
+
+  ::-moz-selection {
+    background: rgba(109, 46, 70, 0.4);
+    color: #F5EEF0;
+  }
+
+  /* ── Scrollbar Styling ── */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0D0709;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4A1E30;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6D2E46;
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #4A1E30 #0D0709;
+  }
+
+  /* ── Heading Defaults ── */
+  h1, h2, h3 {
+    @apply font-display font-semibold text-smoke-bright;
+    text-wrap: balance;
+  }
+
+  h4, h5, h6 {
+    @apply font-heading font-semibold text-smoke-light;
+  }
+
+  /* ── Link Defaults ── */
+  a {
+    @apply transition-colors duration-400 ease-luxury;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* ── Paragraph Defaults ── */
+  p {
+    @apply text-smoke leading-relaxed;
+    max-width: 65ch;
+  }
+
+  /* ── Image Defaults ── */
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ── Button Reset ── */
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. COMPONENT LAYER — Reusable Design Patterns
+   ═══════════════════════════════════════════════════════════════════ */
+
+@layer components {
+
+  /* ── Section Container ── */
+  .portfolio-section {
+    @apply relative w-full;
+    padding: var(--section-padding-y) var(--section-padding-x);
+  }
+
+  .portfolio-container {
+    @apply mx-auto w-full;
+    max-width: var(--content-max-width);
+  }
+
+  /* ── Section Label (e.g., "01 — ABOUT") ── */
+  .section-label {
+    @apply font-heading text-label uppercase tracking-widest text-gold-mist mb-6;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--color-gold-mist);
+    opacity: 0.5;
+  }
+
+  /* ── Section Title ── */
+  .section-title {
+    @apply font-display text-section text-smoke-bright mb-8;
+  }
+
+  /* ── Glass Card ── */
+  .glass-card {
+    @apply rounded-card;
+    background: rgba(26, 12, 16, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(109, 46, 70, 0.15);
+    transition: all 0.4s var(--ease-luxury);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(109, 46, 70, 0.35);
+    box-shadow: 0 8px 40px rgba(109, 46, 70, 0.15);
+    transform: translateY(-2px);
+  }
+
+  /* ── Solid Card ── */
+  .solid-card {
+    @apply bg-surface rounded-card shadow-card;
+    border: 1px solid rgba(74, 30, 48, 0.2);
+    transition: all 0.4s var(--ease-luxury);
+  }
+
+  .solid-card:hover {
+    @apply bg-surface-elevated shadow-card-hover;
+    border-color: rgba(109, 46, 70, 0.3);
+    transform: translateY(-3px);
+  }
+
+  /* ── Skill Pill ── */
+  .skill-pill {
+    @apply font-mono text-caption px-4 py-1.5 rounded-pill;
+    background: rgba(109, 46, 70, 0.15);
+    border: 1px solid rgba(109, 46, 70, 0.3);
+    color: var(--color-smoke-light);
+    transition: all 0.3s var(--ease-luxury);
+    white-space: nowrap;
+  }
+
+  .skill-pill:hover {
+    background: rgba(109, 46, 70, 0.3);
+    border-color: var(--color-wine);
+    color: var(--color-smoke-bright);
+    box-shadow: 0 0 20px rgba(109, 46, 70, 0.2);
+  }
+
+  /* ── Gold Accent Pill ── */
+  .gold-pill {
+    @apply font-mono text-caption px-4 py-1.5 rounded-pill;
+    background: rgba(201, 169, 110, 0.1);
+    border: 1px solid rgba(201, 169, 110, 0.3);
+    color: var(--color-gold-mist);
+    transition: all 0.3s var(--ease-luxury);
+  }
+
+  .gold-pill:hover {
+    background: rgba(201, 169, 110, 0.2);
+    border-color: var(--color-gold-mist);
+    box-shadow: 0 0 20px rgba(201, 169, 110, 0.15);
+  }
+
+  /* ── Primary CTA Button ── */
+  .btn-primary {
+    @apply font-heading font-semibold text-sm tracking-wider uppercase px-8 py-3.5 rounded-pill;
+    background: linear-gradient(135deg, var(--color-wine), var(--color-wine-light));
+    color: var(--color-smoke-bright);
+    border: 1px solid rgba(138, 58, 90, 0.3);
+    transition: all 0.4s var(--ease-luxury);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-wine-light), var(--color-gold-dark));
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-luxury);
+    z-index: -1;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(109, 46, 70, 0.4);
+    border-color: rgba(201, 169, 110, 0.3);
+  }
+
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+
+  /* ── Ghost Button ── */
+  .btn-ghost {
+    @apply font-heading font-medium text-sm tracking-wider uppercase px-8 py-3.5 rounded-pill;
+    color: var(--color-smoke-light);
+    border: 1px solid rgba(196, 168, 176, 0.2);
+    transition: all 0.4s var(--ease-luxury);
+    background: transparent;
+  }
+
+  .btn-ghost:hover {
+    color: var(--color-smoke-bright);
+    border-color: var(--color-wine);
+    background: rgba(109, 46, 70, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* ── Divider Line ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(109, 46, 70, 0.3) 20%,
+      rgba(201, 169, 110, 0.15) 50%,
+      rgba(109, 46, 70, 0.3) 80%,
+      transparent
+    );
+  }
+
+  /* ── Pull Quote ── */
+  .pull-quote {
+    @apply font-editorial text-quote text-smoke-light italic;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .pull-quote::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.25em;
+    bottom: 0.25em;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--color-gold-mist), var(--color-wine));
+    border-radius: 9999px;
+  }
+
+  /* ── Navigation Link ── */
+  .nav-link {
+    @apply font-heading text-sm uppercase tracking-wider;
+    color: var(--color-smoke);
+    transition: color 0.3s var(--ease-luxury);
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-gold-mist);
+    transition: width 0.4s var(--ease-luxury);
+  }
+
+  .nav-link:hover {
+    color: var(--color-smoke-bright);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-link.active {
+    color: var(--color-gold-mist);
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. UTILITIES LAYER — Custom One-Off Utilities
+   ═══════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+
+  /* ── Text Gradient ── */
+  .text-gradient-wine {
+    background: linear-gradient(135deg, var(--color-wine-light), var(--color-gold-mist));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, var(--color-gold-mist), var(--color-gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-smoke {
+    background: linear-gradient(135deg, var(--color-smoke-bright), var(--color-smoke));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Background Patterns ── */
+  .bg-grain {
+    position: relative;
+  }
+
+  .bg-grain::after {
+    content: '';
+    position: absolute;
+    inset: -200%;
+    width: 400%;
+    height: 400%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+    animation: grain 8s steps(10) infinite;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(109, 46, 70, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(109, 46, 70, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(rgba(109, 46, 70, 0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* ── Radial Glow Effects ── */
+  .glow-wine {
+    position: relative;
+  }
+
+  .glow-wine::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(109, 46, 70, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+
+  .glow-gold {
+    position: relative;
+  }
+
+  .glow-gold::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+
+  /* ── Shimmer Effect ── */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(201, 169, 110, 0.08) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s ease infinite;
+  }
+
+  /* ── Stagger Animation Delays ── */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-6 { animation-delay: 0.6s; }
+  .stagger-7 { animation-delay: 0.7s; }
+  .stagger-8 { animation-delay: 0.8s; }
+
+  /* ── Initially Hidden (for animation) ── */
+  .animate-hidden {
+    opacity: 0;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. RESPONSIVE OVERRIDES
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding-y: 4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-padding-y: 3rem;
+  }
+}

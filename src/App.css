@@ -1,4 +1,322 @@
-/* App.css - Minimal styles since we're using Tailwind CSS */
+/* ═══════════════════════════════════════════════════════════════════
+   APP.CSS — Component-Level Patterns & Section Utilities
+   Dark Luxury Editorial — Sahithi Siri Portfolio
+   ═══════════════════════════════════════════════════════════════════ */
 
 
-/* You can add custom styles here if needed */
+/* ═══════════════════════════════════════════════════════════════════
+   1. HERO SECTION PATTERNS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.hero-gradient-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(13, 7, 9, 0.1) 0%,
+    rgba(13, 7, 9, 0.4) 40%,
+    rgba(13, 7, 9, 0.85) 75%,
+    rgba(13, 7, 9, 1) 100%
+  );
+}
+
+.hero-vignette {
+  box-shadow: inset 0 0 150px rgba(13, 7, 9, 0.7);
+}
+
+.hero-name-shadow {
+  text-shadow: 0 4px 30px rgba(13, 7, 9, 0.6);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. NAVIGATION PATTERNS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.nav-glass {
+  background: rgba(13, 7, 9, 0.85);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid rgba(109, 46, 70, 0.1);
+}
+
+.nav-glass.scrolled {
+  background: rgba(13, 7, 9, 0.95);
+  border-bottom-color: rgba(109, 46, 70, 0.2);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. PROJECT CARD PATTERNS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.project-card-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 40%,
+    rgba(13, 7, 9, 0.9) 100%
+  );
+  transition: opacity 0.4s var(--ease-luxury);
+}
+
+.project-card-image img {
+  transition: transform 0.6s var(--ease-luxury);
+}
+
+.project-card:hover .project-card-image img {
+  transform: scale(1.05);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. ACHIEVEMENT / TIMELINE PATTERNS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.timeline-line {
+  position: absolute;
+  left: 1.5rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--color-wine-muted) 10%,
+    var(--color-wine-muted) 90%,
+    transparent
+  );
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-wine);
+  border: 2px solid var(--color-wine-light);
+  box-shadow: 0 0 12px rgba(109, 46, 70, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(109, 46, 70, 0.3);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. SKILL PROGRESS BAR
+   ═══════════════════════════════════════════════════════════════════ */
+
+.skill-bar-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(74, 30, 48, 0.3);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--color-wine), var(--color-gold-mist));
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.2s var(--ease-luxury);
+}
+
+.skill-bar-fill.visible {
+  transform: scaleX(var(--fill-width, 0));
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. CONTACT FORM INPUTS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(26, 12, 16, 0.6);
+  border: 1px solid rgba(109, 46, 70, 0.2);
+  border-radius: 0.5rem;
+  color: var(--color-smoke-bright);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all 0.3s var(--ease-luxury);
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: rgba(196, 168, 176, 0.4);
+}
+
+.form-input:focus {
+  border-color: var(--color-wine);
+  background: rgba(26, 12, 16, 0.8);
+  box-shadow: 0 0 20px rgba(109, 46, 70, 0.15);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   7. SCROLL REVEAL ANIMATION SYSTEM
+   ═══════════════════════════════════════════════════════════════════ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--ease-luxury), transform 0.8s var(--ease-luxury);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s var(--ease-luxury), transform 0.8s var(--ease-luxury);
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s var(--ease-luxury), transform 0.8s var(--ease-luxury);
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s var(--ease-luxury), transform 0.6s var(--ease-luxury);
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   8. DECORATIVE ELEMENTS
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Floating orb decoration */
+.deco-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.15;
+}
+
+.deco-orb.wine {
+  background: var(--color-wine);
+}
+
+.deco-orb.gold {
+  background: var(--color-gold-mist);
+  opacity: 0.08;
+}
+
+/* Diagonal line accent */
+.deco-line {
+  position: absolute;
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-wine-muted), transparent);
+  transform: rotate(-45deg);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Corner bracket decoration */
+.deco-bracket {
+  position: relative;
+}
+
+.deco-bracket::before,
+.deco-bracket::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: rgba(109, 46, 70, 0.3);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.deco-bracket::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+
+.deco-bracket::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   9. RESPONSIVE MEDIA QUERIES
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .project-card:hover .project-card-image img {
+    transform: scale(1.02);
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline-line {
+    left: 0.75rem;
+  }
+
+  .pull-quote {
+    padding-left: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .skill-bar-fill {
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

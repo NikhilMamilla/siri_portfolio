@@ -1,51 +1,46 @@
-import React from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import Profile from './components/Profile';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import { useSmoothScroll } from './hooks/useSmoothScroll';
 
 function App() {
+  // Initialize Lenis Smooth Scrolling
+  useSmoothScroll();
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-800 mb-6">
-          Welcome to Kiddoo
-        </h1>
-        
-        <div className="space-y-4">
-          <div className="bg-white rounded-lg shadow-md p-6 max-w-md mx-auto">
-            <h2 className="text-xl font-semibold text-gray-700 mb-4">
-              Frontend Status
-            </h2>
-            
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-gray-600">React:</span>
-                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                  ✓ Working
-                </span>
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <span className="text-gray-600">TypeScript:</span>
-                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                  ✓ Working
-                </span>
-              </div>
-              
-              <div className="flex items-center justify-between">
-                <span className="text-gray-600">Tailwind CSS:</span>
-                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                  ✓ Working
-                </span>
-              </div>
-            </div>
-          </div>
-          
-          <p className="text-gray-500 text-sm">
-            Your frontend is ready! 🚀
-          </p>
-        </div>
-      </div>
-    </div>
+    <main className="bg-obsidian min-h-screen selection:bg-wine/40 selection:text-smoke-bright">
+      
+      {/* ── Global Navigation ── */}
+      <Navbar />
+
+      {/* ── Hero Section (Phase 1) ── */}
+      <Hero />
+
+      {/* ── About Section (Phase 2) ── */}
+      <About />
+
+      {/* ── Profile Section (Phase 3) ── */}
+      <Profile />
+
+      {/* ── Skills Section (Phase 4) ── */}
+      <Skills />
+
+      {/* ── Projects Section (Phase 5) ── */}
+      <Projects />
+
+      {/* ── Contact Section (Phase 6) ── */}
+      <Contact />
+
+      {/* ── Global Footer ── */}
+      <Footer />
+
+    </main>
   );
 }
 
 export default App;
- 
