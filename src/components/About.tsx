@@ -18,10 +18,10 @@ const About = () => {
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <p className="section-label">01 — About Me</p>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-section text-smoke-bright mb-4 leading-tight">
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-section text-smoke-bright mb-4 leading-tight lg:whitespace-nowrap">
               A Glimpse Into My Journey
             </h2>
-            <p className="font-heading text-base sm:text-lg text-wine-light mb-10 uppercase tracking-[0.2em] leading-relaxed">
+            <p className="font-heading text-base sm:text-lg text-wine-light mb-10 uppercase tracking-[0.2em] leading-relaxed lg:whitespace-nowrap">
               Blending Technical Precision with Creative Intelligence
             </p>
             
