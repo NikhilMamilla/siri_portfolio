@@ -100,7 +100,15 @@ const Profile = () => {
   );
 };
 
-const CardItem = ({ item }: { item: any }) => {
+interface ProfileItem {
+  title: string;
+  type?: string;
+  status?: string;
+  institution: string;
+  dates: string;
+}
+
+const CardItem = ({ item }: { item: ProfileItem }) => {
   const isInProgress = item.status === "In Progress";
 
   return (
@@ -143,7 +151,7 @@ const CardItem = ({ item }: { item: any }) => {
   );
 };
 
-const TimelineItem = ({ item, index }: { item: any; index: number }) => {
+const TimelineItem = ({ item, index }: { item: ProfileItem; index: number }) => {
   const isLeft = index % 2 === 0;
   const isInProgress = item.status === "In Progress";
 

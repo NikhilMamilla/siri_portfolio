@@ -87,7 +87,12 @@ const Skills = () => {
   );
 };
 
-const SkillCard = ({ category, index }: { category: any; index: number }) => {
+interface SkillCategory {
+  category: string;
+  skills: string[];
+}
+
+const SkillCard = ({ category, index }: { category: SkillCategory; index: number }) => {
   // Use sticky positioning to create the stacking effect
   // Reduced offsets to bring the cards higher up on the screen
   const topOffset = 80 + index * 25;

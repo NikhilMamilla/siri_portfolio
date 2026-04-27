@@ -4,6 +4,8 @@ import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { HiOutlineDownload, HiOutlineArrowRight } from "react-icons/hi";
 import { heroContent } from "../constants";
 import { cn } from "../lib/utils";
+import { ShootingStars } from "./ui/shooting-stars";
+import { StarsBackground } from "./ui/stars-background";
 
 const Hero = () => {
   // States for name typing
@@ -56,13 +58,26 @@ const Hero = () => {
       className="relative min-h-screen flex items-center bg-obsidian bg-grain overflow-hidden"
     >
       {/* ── Background Effects ── */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wine/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wine/5 blur-[100px] rounded-full translate-y-1/2 -translate-x-1/4" />
-        <div className="absolute inset-0 bg-grid opacity-[0.02]" />
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Subtle Overlays */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-wine/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/3 z-0" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-wine/5 blur-[100px] rounded-full translate-y-1/2 -translate-x-1/4 z-0" />
+        <div className="absolute inset-0 bg-grid opacity-[0.02] z-0" />
+        
+        {/* Animated Stars - Layered on top of overlays */}
+        <StarsBackground className="z-10" />
+        <ShootingStars 
+          trailColor="#6D2E46" 
+          starColor="#C9A96E" 
+          starWidth={20} 
+          starHeight={2}
+          minDelay={800}
+          maxDelay={1500}
+          className="z-20" 
+        />
       </div>
 
-      <div className="portfolio-container px-8 md:px-20 relative z-10">
+      <div className="portfolio-container px-8 md:px-20 relative z-30">
 
         {/* ── Main Content ── */}
         <div className="pt-20">

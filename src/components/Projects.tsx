@@ -3,7 +3,22 @@ import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { projectsContent } from "../constants";
 import { cn } from "../lib/utils";
 
-const ProjectCard = ({ name, description, tags, image, source_code_link, live_demo_link, index }: any) => {
+interface Tag {
+  name: string;
+  color: string;
+}
+
+interface ProjectCardProps {
+  name: string;
+  description: string;
+  tags: Tag[];
+  image: string;
+  source_code_link: string;
+  live_demo_link: string;
+  index: number;
+}
+
+const ProjectCard = ({ name, description, tags, image, source_code_link, live_demo_link, index }: ProjectCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -55,7 +70,7 @@ const ProjectCard = ({ name, description, tags, image, source_code_link, live_de
         </div>
 
         <div className="flex flex-wrap gap-3 pt-2">
-          {tags.map((tag: any) => (
+          {tags.map((tag: Tag) => (
             <span 
               key={tag.name} 
               className={cn("font-mono text-[10px] tracking-widest uppercase", tag.color)}
